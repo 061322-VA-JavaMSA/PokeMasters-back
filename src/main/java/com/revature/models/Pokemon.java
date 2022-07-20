@@ -38,6 +38,24 @@ public class Pokemon {
 	@JoinColumn(name = "ot_id")
 	private Trainer ot;
 
+	public Pokemon(int id, int apiId, String nickname, int hp, int attack, int defense, int sAttack, int sDefense,
+			int speed, int exp, int level, Trainer trainer, Trainer ot) {
+		super();
+		this.id = id;
+		this.apiId = apiId;
+		this.nickname = nickname;
+		this.hp = hp;
+		this.attack = attack;
+		this.defense = defense;
+		this.sAttack = sAttack;
+		this.sDefense = sDefense;
+		this.speed = speed;
+		this.exp = exp;
+		this.level = level;
+		this.trainer = trainer;
+		this.ot = ot;
+	}
+
 	public Pokemon() {
 		super();
 		// TODO Auto-generated constructor stub
