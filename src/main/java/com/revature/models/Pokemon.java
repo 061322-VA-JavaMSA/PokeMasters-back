@@ -2,13 +2,7 @@ package com.revature.models;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "pokemon")
@@ -38,7 +32,7 @@ public class Pokemon {
 	@Column(nullable = false)
 	private int level;
 	@ManyToOne
-	@Column(name = "trainer_id")
+	@JoinColumn(name = "trainer_id")
 	private Trainer trainer;
 
 	public Pokemon() {
