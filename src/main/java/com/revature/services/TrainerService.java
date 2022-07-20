@@ -3,17 +3,20 @@ package com.revature.services;
 import com.revature.models.Role;
 import com.revature.models.Trainer;
 import com.revature.repositories.TrainerRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @Transactional //https://www.baeldung.com/transaction-configuration-with-jpa-and-spring
 public class TrainerService {
-    private final TrainerRepository tr;
+
+    private TrainerRepository tr;
+
+    public TrainerService(TrainerRepository tr) {
+        this.tr = tr;
+    }
 
     public Trainer saveTrainer(Trainer trainer) {
         return tr.save(trainer);
