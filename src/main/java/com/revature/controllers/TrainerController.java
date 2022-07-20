@@ -2,7 +2,6 @@ package com.revature.controllers;
 
 import com.revature.models.Trainer;
 import com.revature.services.TrainerService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,10 +10,13 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api")
 public class TrainerController {
-    private final TrainerService ts;
+    private TrainerService ts;
+
+    public TrainerController(TrainerService ts) {
+        this.ts = ts;
+    }
 
     @GetMapping("/trainers")
     public ResponseEntity<List<Trainer>> getTrainers() {
