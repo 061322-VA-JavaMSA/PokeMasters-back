@@ -11,8 +11,8 @@ public class Pokemon {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(nullable = false)
-	private int no;
+	@Column(name = "api_id", nullable = false)
+	private int apiId;
 	@Column(nullable = true)
 	private String nickname;
 	@Column(nullable = false)
@@ -21,9 +21,9 @@ public class Pokemon {
 	private int attack;
 	@Column(nullable = false)
 	private int defense;
-	@Column(nullable = false)
+	@Column(name = "s_attack", nullable = false)
 	private int sAttack;
-	@Column(nullable = false)
+	@Column(name = "s_defense", nullable = false)
 	private int sDefense;
 	@Column(nullable = false)
 	private int speed;
@@ -34,6 +34,9 @@ public class Pokemon {
 	@ManyToOne
 	@JoinColumn(name = "trainer_id")
 	private Trainer trainer;
+	@ManyToOne
+	@JoinColumn(name = "ot_id")
+	private Trainer ot;
 
 	public Pokemon() {
 		super();
@@ -48,12 +51,12 @@ public class Pokemon {
 		this.id = id;
 	}
 
-	public int getNo() {
-		return no;
+	public int getApiId() {
+		return apiId;
 	}
 
-	public void setNo(int no) {
-		this.no = no;
+	public void setApiId(int apiId) {
+		this.apiId = apiId;
 	}
 
 	public String getNickname() {
@@ -136,9 +139,18 @@ public class Pokemon {
 		this.trainer = trainer;
 	}
 
+	public Trainer getOt() {
+		return ot;
+	}
+
+	public void setOt(Trainer ot) {
+		this.ot = ot;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(attack, defense, exp, hp, id, level, nickname, no, sAttack, sDefense, speed, trainer);
+		return Objects.hash(apiId, attack, defense, exp, hp, id, level, nickname, ot, sAttack, sDefense, speed,
+				trainer);
 	}
 
 	@Override
@@ -150,17 +162,17 @@ public class Pokemon {
 		if (getClass() != obj.getClass())
 			return false;
 		Pokemon other = (Pokemon) obj;
-		return attack == other.attack && defense == other.defense && exp == other.exp && hp == other.hp
-				&& id == other.id && level == other.level && Objects.equals(nickname, other.nickname) && no == other.no
-				&& sAttack == other.sAttack && sDefense == other.sDefense && speed == other.speed
-				&& Objects.equals(trainer, other.trainer);
+		return apiId == other.apiId && attack == other.attack && defense == other.defense && exp == other.exp
+				&& hp == other.hp && id == other.id && level == other.level && Objects.equals(nickname, other.nickname)
+				&& Objects.equals(ot, other.ot) && sAttack == other.sAttack && sDefense == other.sDefense
+				&& speed == other.speed && Objects.equals(trainer, other.trainer);
 	}
 
 	@Override
 	public String toString() {
-		return "Pokemon [id=" + id + ", no=" + no + ", nickname=" + nickname + ", hp=" + hp + ", attack=" + attack
+		return "Pokemon [id=" + id + ", apiId=" + apiId + ", nickname=" + nickname + ", hp=" + hp + ", attack=" + attack
 				+ ", defense=" + defense + ", sAttack=" + sAttack + ", sDefense=" + sDefense + ", speed=" + speed
-				+ ", exp=" + exp + ", level=" + level + ", trainer=" + trainer + "]";
+				+ ", exp=" + exp + ", level=" + level + ", trainer=" + trainer + ", ot=" + ot + "]";
 	}
 
 }
