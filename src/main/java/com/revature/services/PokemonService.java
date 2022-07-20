@@ -20,7 +20,7 @@ public class PokemonService {
 		this.pr = pr;
 	}
 	
-	public Pokemon addPokemon(Pokemon p) {
+	public Pokemon savePokemon(Pokemon p) {
 		return pr.save(p);
 	}
 	
