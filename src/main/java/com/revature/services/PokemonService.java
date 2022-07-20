@@ -8,6 +8,7 @@ import com.revature.exceptions.PokemonNotFoundException;
 import com.revature.models.Pokemon;
 import com.revature.models.Trainer;
 import com.revature.repositories.PokemonRepository;
+import com.revature.specifications.PokemonSpecifications;
 
 @Service
 public class PokemonService {
@@ -31,8 +32,12 @@ public class PokemonService {
 		return pr.findPokemonByTrainer(t);
 	}
 	
-	public List<Pokemon> getPokemonByNo(int no) {
-		return pr.findPokemonByNo(no);
+	public List<Pokemon> getPokemonByNo(int apiId) {
+		return pr.findPokemonByApiId(apiId);
+	}
+	
+	public List<Pokemon> getPokemonByTrade(int requestedId, int level, int range) {
+		return pr.findAll(PokemonSpecifications.matchesApiId(requestedId).and(PokemonSpecifications.meetsLevelRequirements(level, range)));
 	}
 
 	public List<Pokemon> getPokemon() {
