@@ -3,7 +3,6 @@ package com.revature.services;
 import com.revature.models.Role;
 import com.revature.models.Trainer;
 import com.revature.repositories.TrainerRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

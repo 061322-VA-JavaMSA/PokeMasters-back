@@ -1,10 +1,8 @@
 package com.revature.models;
 
-import lombok.*;
-
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
+
 
 @Entity
 public class Trainer {
