@@ -1,16 +1,32 @@
 package com.revature.controllers;
 
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.revature.models.Item;
 import com.revature.services.ItemService;
 
+
+@RestController
+@RequestMapping("/items")
 public class ItemController {
 
 	
-	private ItemService ir;
+	private ItemService is;
 
-	public ItemController(ItemService ir) {
+	public ItemController(ItemService is) {
 		super();
-		this.ir = ir;
+		this.is = is;
 	}
 	
-	
+	@GetMapping
+	public ResponseEntity<List<Item>> getAllItems() {
+		List<Item> items = is.getItems();
+		return new ResponseEntity<>(items, HttpStatus.OK);
+	}
 }
