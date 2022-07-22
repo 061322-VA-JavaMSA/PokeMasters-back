@@ -2,6 +2,7 @@ package com.revature.controllers;
 
 import com.revature.models.Trainer;
 import com.revature.services.TrainerService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,9 +26,9 @@ public class TrainerController {
         return ResponseEntity.ok().body(ts.getTrainers());
     }
 
-    @PostMapping("/trainers")
+    @PostMapping(path = "/trainers", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Trainer> saveTrainer(@RequestBody Trainer trainer) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/trainers").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/trainers").toUriString());
         return ResponseEntity.created(uri).body(ts.saveTrainer(trainer));
     }
 }
