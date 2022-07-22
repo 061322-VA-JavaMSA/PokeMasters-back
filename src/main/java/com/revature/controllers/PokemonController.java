@@ -48,8 +48,8 @@ public class PokemonController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Pokemon> createPokemon(@RequestParam("apiId") int apiId, @RequestParam("level") int level) throws JSONException, MalformedURLException, IOException {
-		return new ResponseEntity<>(ps.createPokemon(apiId, level), HttpStatus.CREATED);
+	public ResponseEntity<Pokemon> createPokemon(@RequestBody Pokemon p) throws JSONException, MalformedURLException, IOException {
+		return new ResponseEntity<>(ps.createPokemon(p), HttpStatus.CREATED);
 	}
 
 	@PutMapping
