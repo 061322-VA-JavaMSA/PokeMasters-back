@@ -91,8 +91,8 @@ public class PokemonService {
 		}
 		p.setStats(stats);
 		p.setShiny(Math.random() >= 0.98 ? true : false);
-		p.setSpriteFront(String.format("https://www.pokencyclopedia.info/sprites/gen5/ani_black-white/ani_bw_%03d.gif", apiId));
-		p.setSpriteBack(String.format("https://www.pokencyclopedia.info/sprites/gen5/ani_black-white/a-b_bw_%03d.gif", apiId));
+		p.setSpriteFront(String.format("https://www.pokencyclopedia.info/sprites/gen5/ani_black-white/ani_bw_%03d.gif", p.getApiId()));
+		p.setSpriteBack(String.format("https://www.pokencyclopedia.info/sprites/gen5/ani_black-white/a-b_bw_%03d.gif", p.getApiId()));
 		System.out.println(p);
 		return pr.save(p);
 	}

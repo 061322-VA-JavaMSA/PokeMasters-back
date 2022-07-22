@@ -42,9 +42,9 @@ public class PokeMastersBackApplication {
 			ms.saveMove(new Move(-1, 3));
 			Item i1 = is.addItem(new Item(-1, 1, "Master Ball", 500, "100% catch rate", "BALL"));
 			tis.saveTrainerItem(new TrainerItem(new TrainerItemsKey(), t1, i1, 3));
-			ps.createPokemon(1, 5);
-			ps.createPokemon(4, 5);
-			ps.createPokemon(7, 5);
+//			ps.createPokemon(1, 5);
+//			ps.createPokemon(4, 5);
+//			ps.createPokemon(7, 5);
 		};
 	}
 }
