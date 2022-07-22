@@ -11,12 +11,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 public class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity> {
-    private boolean flag;
 
     @Override
     public void init(HttpSecurity http) throws Exception {
-        // any method that adds another configurer
-        // must be done in the init method
         http
                 .csrf()
                 .disable()
@@ -37,14 +34,5 @@ public class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity> {
         AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
         http.addFilter(new CustomAuthenticationFilter(authenticationManager));
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
-
-    public CustomDsl flag(boolean value) {
-        this.flag = value;
-        return this;
-    }
-
-    public static CustomDsl customDsl() {
-        return new CustomDsl();
     }
 }
