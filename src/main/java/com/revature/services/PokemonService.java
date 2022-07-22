@@ -37,15 +37,13 @@ public class PokemonService {
 		return pr.save(p);
 	}
 
-	public Pokemon createPokemon(int apiId, int level) throws JSONException, MalformedURLException, IOException {
-		Pokemon p = new Pokemon();
-		p.setApiId(apiId);
+	public Pokemon createPokemon(Pokemon p) throws JSONException, MalformedURLException, IOException {
+		p.setId(-1);
 		p.setExp(0);
-		p.setLevel(level);
 		Trainer t = new Trainer(1, "calvin", "1234", "pokemaster1", 100, Role.TRAINER);
 		p.setTrainer(t);
 		p.setOt(t);
-		String url = "https://pokeapi.co/api/v2/pokemon/" + apiId;
+		String url = "https://pokeapi.co/api/v2/pokemon/" + p.getApiId();
 		JSONObject json = new JSONObject(IOUtils.toString(new URL(url), Charset.forName("UTF-8")));
 		p.setNickname(json.getString("name"));
 		p.setNature(Util.randomEnum(Nature.class));

@@ -18,12 +18,16 @@ public class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity> {
                 .csrf()
                 .disable()
                 .cors()
+                // enabling h2 console
+                .and()
+                .headers().frameOptions().disable()
+                // end of h2 console block
                 .and()
                 .authorizeHttpRequests((authorize) -> authorize
                         .antMatchers(HttpMethod.GET, "/token/refresh/**").permitAll()
                         .antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(Role.ADMIN.toString())
                         .antMatchers(HttpMethod.GET, "/trainer/**").hasAnyAuthority(Role.TRAINER.toString())
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

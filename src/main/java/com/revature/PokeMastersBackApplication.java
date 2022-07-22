@@ -40,10 +40,11 @@ public class PokeMastersBackApplication {
 			ts.saveTrainer(new Trainer(-1, "adam", "1234", "pokemaster2", 100, Role.ADMIN));
 			ts.saveTrainer(new Trainer(-1, "kevin", "1234", "pokemaster3", 100, Role.TRAINER));
 			ms.saveMove(new Move(-1, 3));
-			ps.savePokemon(new Pokemon(-1, 4, "Charmander", 39, 45, 50, 48, 48, 65, 0, 5, t1, t1));
-			ps.savePokemon(new Pokemon(-1, 1, "Bulbasaur", 42, 45, 43, 50, 60, 58, 0, 5, t2, t1));
 			Item i1 = is.addItem(new Item(-1, 1, "Master Ball", 500, "100% catch rate", "BALL"));
 			tis.saveTrainerItem(new TrainerItem(new TrainerItemsKey(), t1, i1, 3));
+			ps.createPokemon(1, 5);
+			ps.createPokemon(4, 5);
+			ps.createPokemon(7, 5);
 		};
 	}
 }
