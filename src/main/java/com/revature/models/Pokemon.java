@@ -1,8 +1,21 @@
 package com.revature.models;
 
+import java.util.Arrays;
 import java.util.Objects;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "pokemon")
@@ -13,164 +26,121 @@ public class Pokemon {
 	private int id;
 	@Column(name = "api_id", nullable = false)
 	private int apiId;
+	private String spriteFront;
+	private String spriteBack;
 	@Column(nullable = true)
 	private String nickname;
+	@Enumerated(EnumType.STRING)
+	private Nature nature;
 	@Column(nullable = false)
-	private int hp;
-	@Column(nullable = false)
-	private int attack;
-	@Column(nullable = false)
-	private int defense;
-	@Column(name = "s_attack", nullable = false)
-	private int sAttack;
-	@Column(name = "s_defense", nullable = false)
-	private int sDefense;
-	@Column(nullable = false)
-	private int speed;
+	private int level;
 	@Column(nullable = false)
 	private int exp;
 	@Column(nullable = false)
-	private int level;
+	private int baseExp;
+	@OrderColumn
+	@OneToMany(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="pokemon_id")
+	private Stat[] stats;
+	@Column(nullable=false)
+	private boolean shiny;
 	@ManyToOne
 	@JoinColumn(name = "trainer_id")
 	private Trainer trainer;
 	@ManyToOne
 	@JoinColumn(name = "ot_id")
 	private Trainer ot;
-
-	public Pokemon(int id, int apiId, String nickname, int hp, int attack, int defense, int sAttack, int sDefense,
-			int speed, int exp, int level, Trainer trainer, Trainer ot) {
-		super();
-		this.id = id;
-		this.apiId = apiId;
-		this.nickname = nickname;
-		this.hp = hp;
-		this.attack = attack;
-		this.defense = defense;
-		this.sAttack = sAttack;
-		this.sDefense = sDefense;
-		this.speed = speed;
-		this.exp = exp;
-		this.level = level;
-		this.trainer = trainer;
-		this.ot = ot;
-	}
-
 	public Pokemon() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	public int getApiId() {
 		return apiId;
 	}
-
 	public void setApiId(int apiId) {
 		this.apiId = apiId;
 	}
-
+	public String getSpriteFront() {
+		return spriteFront;
+	}
+	public void setSpriteFront(String spriteFront) {
+		this.spriteFront = spriteFront;
+	}
+	public String getSpriteBack() {
+		return spriteBack;
+	}
+	public void setSpriteBack(String spriteBack) {
+		this.spriteBack = spriteBack;
+	}
+	public int getBaseExp() {
+		return baseExp;
+	}
+	public void setBaseExp(int baseExp) {
+		this.baseExp = baseExp;
+	}
 	public String getNickname() {
 		return nickname;
 	}
-
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-
-	public int getHp() {
-		return hp;
+	public Nature getNature() {
+		return nature;
 	}
-
-	public void setHp(int hp) {
-		this.hp = hp;
+	public void setNature(Nature nature) {
+		this.nature = nature;
 	}
-
-	public int getAttack() {
-		return attack;
-	}
-
-	public void setAttack(int attack) {
-		this.attack = attack;
-	}
-
-	public int getDefense() {
-		return defense;
-	}
-
-	public void setDefense(int defense) {
-		this.defense = defense;
-	}
-
-	public int getsAttack() {
-		return sAttack;
-	}
-
-	public void setsAttack(int sAttack) {
-		this.sAttack = sAttack;
-	}
-
-	public int getsDefense() {
-		return sDefense;
-	}
-
-	public void setsDefense(int sDefense) {
-		this.sDefense = sDefense;
-	}
-
-	public int getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-
-	public int getExp() {
-		return exp;
-	}
-
-	public void setExp(int exp) {
-		this.exp = exp;
-	}
-
 	public int getLevel() {
 		return level;
 	}
-
 	public void setLevel(int level) {
 		this.level = level;
 	}
-
+	public int getExp() {
+		return exp;
+	}
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+	public Stat[] getStats() {
+		return stats;
+	}
+	public void setStats(Stat[] stats) {
+		this.stats = stats;
+	}
+	public boolean isShiny() {
+		return shiny;
+	}
+	public void setShiny(boolean shiny) {
+		this.shiny = shiny;
+	}
 	public Trainer getTrainer() {
 		return trainer;
 	}
-
 	public void setTrainer(Trainer trainer) {
 		this.trainer = trainer;
 	}
-
 	public Trainer getOt() {
 		return ot;
 	}
-
 	public void setOt(Trainer ot) {
 		this.ot = ot;
 	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(apiId, attack, defense, exp, hp, id, level, nickname, ot, sAttack, sDefense, speed,
-				trainer);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(stats);
+		result = prime * result + Objects.hash(apiId, baseExp, exp, id, level, nature, nickname, ot, shiny, spriteBack,
+				spriteFront, trainer);
+		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -180,17 +150,19 @@ public class Pokemon {
 		if (getClass() != obj.getClass())
 			return false;
 		Pokemon other = (Pokemon) obj;
-		return apiId == other.apiId && attack == other.attack && defense == other.defense && exp == other.exp
-				&& hp == other.hp && id == other.id && level == other.level && Objects.equals(nickname, other.nickname)
-				&& Objects.equals(ot, other.ot) && sAttack == other.sAttack && sDefense == other.sDefense
-				&& speed == other.speed && Objects.equals(trainer, other.trainer);
+		return apiId == other.apiId && baseExp == other.baseExp && exp == other.exp && id == other.id
+				&& level == other.level && nature == other.nature && Objects.equals(nickname, other.nickname)
+				&& Objects.equals(ot, other.ot) && shiny == other.shiny && Objects.equals(spriteBack, other.spriteBack)
+				&& Objects.equals(spriteFront, other.spriteFront) && Arrays.equals(stats, other.stats)
+				&& Objects.equals(trainer, other.trainer);
 	}
-
 	@Override
 	public String toString() {
-		return "Pokemon [id=" + id + ", apiId=" + apiId + ", nickname=" + nickname + ", hp=" + hp + ", attack=" + attack
-				+ ", defense=" + defense + ", sAttack=" + sAttack + ", sDefense=" + sDefense + ", speed=" + speed
-				+ ", exp=" + exp + ", level=" + level + ", trainer=" + trainer + ", ot=" + ot + "]";
+		return "Pokemon [id=" + id + ", apiId=" + apiId + ", spriteFront=" + spriteFront + ", spriteBack=" + spriteBack
+				+ ", nickname=" + nickname + ", nature=" + nature + ", level=" + level + ", exp=" + exp + ", baseExp="
+				+ baseExp + ", stats=" + Arrays.toString(stats) + ", shiny=" + shiny + ", trainer=" + trainer + ", ot="
+				+ ot + "]";
 	}
-
+	
+	
 }
