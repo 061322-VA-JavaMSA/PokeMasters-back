@@ -29,6 +29,7 @@ public class TrainerController {
     @PostMapping("/trainers")
     public ResponseEntity<Trainer> saveTrainer(@RequestBody Trainer trainer) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/trainers").toUriString());
+        ts.saveTrainer(trainer);
         return ResponseEntity.created(uri).build();
     }
 }

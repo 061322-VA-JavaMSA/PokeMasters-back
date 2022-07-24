@@ -39,8 +39,7 @@ public class TrainerService implements UserDetailsService {
         }
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(Role.TRAINER.toString()));
-        authorities.add(new SimpleGrantedAuthority(Role.ADMIN.toString()));
+        authorities.add(new SimpleGrantedAuthority(trainer.getRole().toString()));
 
         return new User(trainer.getUsername(), trainer.getPassword(), authorities);
     }
