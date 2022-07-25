@@ -26,9 +26,10 @@ public class TrainerController {
         return ResponseEntity.ok().body(ts.getTrainers());
     }
 
-    @PostMapping(path = "/trainers", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping("/trainers")
     public ResponseEntity<Trainer> saveTrainer(@RequestBody Trainer trainer) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/trainers").toUriString());
-        return ResponseEntity.created(uri).body(ts.saveTrainer(trainer));
+        ts.saveTrainer(trainer);
+        return ResponseEntity.created(uri).build();
     }
 }
