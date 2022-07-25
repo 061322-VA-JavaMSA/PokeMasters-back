@@ -60,6 +60,7 @@ public class Pokemon {
 		this.level = level;
 		this.shiny = shiny;
 		this.trainer = trainer;
+		this.iv = new IV();
 	}
 
 	public int getId() {

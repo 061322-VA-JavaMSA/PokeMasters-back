@@ -42,9 +42,18 @@ public class Trainer {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Trainer(int i, String string, String string2, String string3, int j, Role trainer) {
-		// TODO Auto-generated constructor stub
+
+	public Trainer(int id, String username, String password, String displayName, int money, List<Pokemon> party, Role role, Set<TrainerItem> qty) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.displayName = displayName;
+		this.money = money;
+		this.party = party;
+		this.role = role;
+		this.qty = qty;
 	}
+
 	public int getId() {
 		return id;
 	}
