@@ -2,7 +2,6 @@ package com.revature.controllers;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
@@ -14,10 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.dtos.PokemonDTO;
 import com.revature.exceptions.PokemonNotFoundException;
 import com.revature.models.Pokemon;
 import com.revature.services.PokemonService;
@@ -34,12 +31,8 @@ public class PokemonController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<PokemonDTO>> getAll() {
-		List<Pokemon> pokemon = ps.getPokemon();
-		List<PokemonDTO> pokeDTO = new ArrayList<>();
-		pokemon.forEach(p -> pokeDTO.add(new PokemonDTO(p)));
-		
-		return new ResponseEntity<>(pokeDTO, HttpStatus.OK);
+	public ResponseEntity<List<Pokemon>> getAll() {
+		return new ResponseEntity<>(ps.getPokemon(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")

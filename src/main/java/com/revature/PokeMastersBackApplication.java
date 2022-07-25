@@ -3,12 +3,15 @@ package com.revature;
 import com.revature.keys.TrainerItemsKey;
 import com.revature.models.*;
 import com.revature.services.*;
+import org.hibernate.mapping.Set;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.ArrayList;
 
 @SpringBootApplication
 public class PokeMastersBackApplication {
@@ -35,16 +38,19 @@ public class PokeMastersBackApplication {
 	@Bean
 	CommandLineRunner run(TrainerService ts, MoveService ms, PokemonService ps, ItemService is, TrainerItemService tis) {
 		return args -> {
-			Trainer t1 = ts.saveTrainer(new Trainer(-1, "calvin", "1234", "pokemaster1", 100, Role.TRAINER));
-			Trainer t2 = ts.saveTrainer(new Trainer(-1, "elonmusk", "1234", "pokemaster", 100, Role.TRAINER));
-			ts.saveTrainer(new Trainer(-1, "adam", "1234", "pokemaster2", 100, Role.ADMIN));
-			ts.saveTrainer(new Trainer(-1, "kevin", "1234", "pokemaster3", 100, Role.TRAINER));
+			Trainer t1 = ts.saveTrainer(new Trainer(-1, "calvin", "1234", "pokemaster1", 100, new ArrayList<>(), Role.TRAINER, null));
+			//Trainer t2 = ts.saveTrainer(new Trainer(-1, "elonmusk", "1234", "pokemaster", 100, Role.TRAINER));
+			ts.saveTrainer(new Trainer(-1, "adam", "1234", "pokemaster2", 100, new ArrayList<>(), Role.ADMIN, null));
+			ts.saveTrainer(new Trainer(-1, "kevin", "1234", "pokemaster3", 100, null, Role.TRAINER, null));
 			ms.saveMove(new Move(-1, 3));
 			Item i1 = is.addItem(new Item(-1, 1, "Master Ball", 500, "100% catch rate", "BALL"));
 			tis.saveTrainerItem(new TrainerItem(new TrainerItemsKey(), t1, i1, 3));
-//			ps.createPokemon(1, 5);
-//			ps.createPokemon(4, 5);
-//			ps.createPokemon(7, 5);
+			Pokemon p1 = ps.createPokemon(new Pokemon(4, Nature.BOLD, 5, true, t1));
+			Pokemon p2 = ps.createPokemon(new Pokemon(1, Nature.ADAMANT, 5, false, t1));
+			Pokemon p3 = ps.createPokemon(new Pokemon(7, Nature.SASSY, 5, false, t1));
+			ps.savePokemon(p1);
+			ps.savePokemon(p2);
+			ps.savePokemon(p3);
 		};
 	}
 }
