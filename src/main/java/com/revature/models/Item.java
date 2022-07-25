@@ -25,8 +25,6 @@ public class Item {
 	private int price;
 	@Column(name="effect", nullable= false)
 	private String effect;
-	@Column(name="type", nullable=false)
-	private String type;
 	@OneToMany(mappedBy = "item")
 	Set<TrainerItem> qty;
 	
@@ -34,14 +32,14 @@ public class Item {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Item(int id, int apiId, String itemName, int price, String effect, String type) {
+	public Item(int id, int apiId, String itemName, int price, String effect) {
 		super();
 		this.id = id;
 		this.apiId = apiId;
 		this.itemName = itemName;
 		this.price = price;
 		this.effect = effect;
-		this.type = type;
+
 	}
 	public int getId() {
 		return id;
@@ -73,15 +71,9 @@ public class Item {
 	public void setEffect(String effect) {
 		this.effect = effect;
 	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(apiId, effect, id, itemName, price, type);
+		return Objects.hash(apiId, effect, id, itemName, price);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -93,12 +85,12 @@ public class Item {
 			return false;
 		Item other = (Item) obj;
 		return apiId == other.apiId && Objects.equals(effect, other.effect) && id == other.id
-				&& Objects.equals(itemName, other.itemName) && price == other.price && Objects.equals(type, other.type);
+				&& Objects.equals(itemName, other.itemName) && price == other.price;
 	}
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", apiId=" + apiId + ", itemName=" + itemName + ", price=" + price + ", effect="
-				+ effect + ", type=" + type + "]";
+				+ effect + "]";
 	}
 	
 	
