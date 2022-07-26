@@ -23,58 +23,111 @@ public class Item {
 	private String itemName;
 	@Column(name="price", nullable=false)
 	private int price;
-	@Column(name="effect", nullable= false)
+	@Column(name="effect")
 	private String effect;
+	@Column(name="type", nullable=false)
+	private String type;
+	@Column(name="sprite")
+	private String sprite;
+
 	@OneToMany(mappedBy = "item")
 	Set<TrainerItem> qty;
+	
 	
 	public Item() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Item(int id, int apiId, String itemName, int price, String effect) {
+
+
+	public Item(int id, int apiId, String itemName, int price, String effect, String type, String sprite) {
 		super();
 		this.id = id;
 		this.apiId = apiId;
 		this.itemName = itemName;
 		this.price = price;
 		this.effect = effect;
-
+		this.type = type;
+		this.sprite = sprite;
 	}
+
+
 	public int getId() {
 		return id;
 	}
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
 	public int getApiId() {
 		return apiId;
 	}
+
+
 	public void setApiId(int apiId) {
 		this.apiId = apiId;
 	}
+
+
 	public String getItemName() {
 		return itemName;
 	}
+
+
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
+
+
 	public int getPrice() {
 		return price;
 	}
+
+
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
+
 	public String getEffect() {
 		return effect;
 	}
+
+
 	public void setEffect(String effect) {
 		this.effect = effect;
 	}
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	public String getSprite() {
+		return sprite;
+	}
+
+
+	public void setSprite(String sprite) {
+		this.sprite = sprite;
+	}
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(apiId, effect, id, itemName, price);
+		return Objects.hash(apiId, effect, id, itemName, price, sprite, type);
 	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -85,12 +138,15 @@ public class Item {
 			return false;
 		Item other = (Item) obj;
 		return apiId == other.apiId && Objects.equals(effect, other.effect) && id == other.id
-				&& Objects.equals(itemName, other.itemName) && price == other.price;
+				&& Objects.equals(itemName, other.itemName) && price == other.price
+				&& Objects.equals(sprite, other.sprite) && Objects.equals(type, other.type);
 	}
+
+
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", apiId=" + apiId + ", itemName=" + itemName + ", price=" + price + ", effect="
-				+ effect + "]";
+				+ effect + ", type=" + type + ", sprite=" + sprite + "]";
 	}
 	
 	
