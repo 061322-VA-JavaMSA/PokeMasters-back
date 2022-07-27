@@ -6,26 +6,37 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.exceptions.StorageNotFoundException;
 import com.revature.models.Storage;
+import com.revature.models.Trainer;
 import com.revature.services.StorageService;
+import com.revature.services.TrainerService;
 
-@RestController("/storage")
-@ResponseBody
+@RestController
+@RequestMapping(("/storage"))
 public class StorageController {
 	
 	private StorageService ss;
+	private TrainerService ts;
 	
-	public StorageController(StorageService ss) {
+	public StorageController(StorageService ss, TrainerService ts) {
 		super();
 		this.ss = ss;
+		this.ts = ts;
 	}
 
 	@GetMapping("/trainer/{username}")
 	public ResponseEntity<Storage> getTrainerStorage(@PathVariable String username) {
-		return new ResponseEntity<>(ss.getStorageByUsername(username), HttpStatus.OK);
+		Trainer t = ts.getTrainer(username);
+		return new ResponseEntity<>(ss.getStorageByTrainer(t), HttpStatus.OK);
+	}
+	
+	@GetMapping("{id}")
+	public ResponseEntity<Storage> getById(@PathVariable int id) throws StorageNotFoundException {
+		return ResponseEntity.ok(ss.getStorageById(id));
 	}
 	
 	@PutMapping

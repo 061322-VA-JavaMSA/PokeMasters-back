@@ -6,26 +6,22 @@ import com.revature.exceptions.StorageNotFoundException;
 import com.revature.models.Storage;
 import com.revature.models.Trainer;
 import com.revature.repositories.StorageRepository;
-import com.revature.repositories.TrainerRepository;
 
 @Service
 public class StorageService {
 
 	private StorageRepository sr;
-	private TrainerRepository tr;
 
-	public StorageService(StorageRepository sr, TrainerRepository tr) {
+	public StorageService(StorageRepository sr) {
 		super();
 		this.sr = sr;
-		this.tr = tr;
 	}
 	
 	public Storage getStorageById(int id) throws StorageNotFoundException {
 		return sr.findById(id).orElseThrow(() -> new StorageNotFoundException());
 	}
 	
-	public Storage getStorageByUsername(String username) {
-		Trainer t = tr.findTrainerByUsername(username);
+	public Storage getStorageByTrainer(Trainer t) {
 		return sr.findByTrainer(t);
 	}
 	

@@ -18,16 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.exceptions.PokemonNotFoundException;
 import com.revature.models.Pokemon;
 import com.revature.services.PokemonService;
+import com.revature.services.TrainerService;
 
 @RestController
 @RequestMapping("/pokemon")
 public class PokemonController {
 
 	private PokemonService ps;
+	private TrainerService ts;
 
-	public PokemonController(PokemonService ps) {
+	public PokemonController(PokemonService ps, TrainerService ts) {
 		super();
 		this.ps = ps;
+		this.ts = ts;
 	}
 
 	@GetMapping
@@ -40,8 +43,9 @@ public class PokemonController {
 		return new ResponseEntity<>(ps.getPokemonById(id), HttpStatus.OK);
 	}
 
-	@PostMapping
-	public ResponseEntity<Pokemon> createPokemon(@RequestBody Pokemon p) throws JSONException, MalformedURLException, IOException {
+	@PostMapping("/trainer/{username}")
+	public ResponseEntity<Pokemon> createPokemon(@RequestBody Pokemon p, @PathVariable String username) throws JSONException, MalformedURLException, IOException {
+		p.setTrainer(ts.getTrainer(username));
 		return new ResponseEntity<>(ps.createPokemon(p), HttpStatus.CREATED);
 	}
 
