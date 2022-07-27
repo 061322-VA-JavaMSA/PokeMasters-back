@@ -41,7 +41,7 @@ public class PokeMastersBackApplication {
 			Trainer t1 = ts.saveTrainer(new Trainer(-1, "calvin", "1234", "pokemaster1", 100, new ArrayList<>(), Role.TRAINER, null));
 			//Trainer t2 = ts.saveTrainer(new Trainer(-1, "elonmusk", "1234", "pokemaster", 100, Role.TRAINER));
 			ts.saveTrainer(new Trainer(-1, "adam", "1234", "pokemaster2", 100, new ArrayList<>(), Role.ADMIN, null));
-			ts.saveTrainer(new Trainer(-1, "kevin", "1234", "pokemaster3", 100, null, Role.TRAINER, null));
+			ts.saveTrainer(new Trainer(-1, "kevin", "1234", "pokemaster3", 100, new ArrayList<>(), Role.TRAINER, null));
 			ms.saveMove(new Move(-1, 3));
 			Item i1 = is.addItem(new Item(-1, 1, "Master Ball", 500, "100% catch rate", "standard-balls", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png"));
 			tis.saveTrainerItem(new TrainerItem(new TrainerItemsKey(), t1, i1, 3));
