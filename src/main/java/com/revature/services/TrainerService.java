@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import com.revature.models.CustomUser;
 import com.revature.models.Role;
 import com.revature.models.Trainer;
 import com.revature.repositories.TrainerRepository;
@@ -41,7 +42,7 @@ public class TrainerService implements UserDetailsService {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(trainer.getRole().toString()));
 
-        return new User(trainer.getUsername(), trainer.getPassword(), authorities);
+        return new CustomUser(trainer.getId(), trainer.getUsername(), trainer.getPassword(), authorities);
     }
 
     public Trainer saveTrainer(Trainer trainer) {
