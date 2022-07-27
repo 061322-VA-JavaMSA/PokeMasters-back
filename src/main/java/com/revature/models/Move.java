@@ -20,7 +20,7 @@ public class Move {
 	private int num;
 	
 	@ManyToOne
-	@JoinColumn(name="pokemon_id", nullable=false)
+	@JoinColumn(name="pokemon_id")
 	private Pokemon pokemon;
 	
 	public Move() {

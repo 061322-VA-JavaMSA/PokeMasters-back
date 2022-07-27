@@ -1,11 +1,10 @@
 package com.revature.services;
 
-import com.revature.models.CustomUser;
+import com.revature.security.CustomUser;
 import com.revature.models.Role;
 import com.revature.models.Trainer;
 import com.revature.repositories.TrainerRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
