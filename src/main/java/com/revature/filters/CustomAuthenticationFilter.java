@@ -3,6 +3,7 @@ package com.revature.filters;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.models.CustomUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -43,11 +44,16 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        User user = (User) authResult.getPrincipal();
+        CustomUser user = (CustomUser) authResult.getPrincipal();
         // don't put your secret out in the open :)
         Algorithm algorithm = Algorithm.HMAC256("PokeMasters".getBytes());
 
-        String accessToken = JWT.create().withSubject(user.getUsername())
+        Map<String, Integer> payload = new HashMap<>();
+        payload.put("id", user.getId());
+
+        String accessToken = JWT.create()
+                .withSubject(user.getUsername())
+                .withPayload(payload)
                 .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
                 .withIssuer(request.getRequestURI())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
