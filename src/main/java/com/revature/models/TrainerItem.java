@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.revature.keys.TrainerItemsKey;
 
 @Entity
@@ -19,6 +20,7 @@ public class TrainerItem {
 	@ManyToOne
 	@MapsId("trainerId")
 	@JoinColumn(name="trainer_id")
+	@JsonBackReference
 	Trainer trainer; 
 	
 	@ManyToOne
