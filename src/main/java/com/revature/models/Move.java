@@ -18,10 +18,11 @@ public class Move {
 	private int id;
 	@Column(nullable=false)
 	private int num;
-	
+	/*
 	@ManyToOne
 	@JoinColumn(name="pokemon_id")
 	private Pokemon pokemon;
+	*/
 	
 	public Move() {
 		super();
