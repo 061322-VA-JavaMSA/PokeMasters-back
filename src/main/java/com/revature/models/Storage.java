@@ -105,7 +105,12 @@ public class Storage {
 			if (looped && j == activeIndex) {
 				throw new StorageFullException();
 			}
-			Pokemon[] pokes = boxes[j].getPokemon();
+			Pokemon[] pokes = new Pokemon[30];
+			for (int k=0; k<boxes[j].getPokemon().length; k++) {
+				pokes[k] = boxes[j].getPokemon()[k];
+			}
+			boxes[j].setPokemon(pokes);
+			
 			for (int i = 0; i < pokes.length; i++) {
 				if (pokes[i] == null) {
 					pokes[i] = p;

@@ -1,10 +1,12 @@
 package com.revature.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,9 +24,9 @@ public class Party {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	@OrderColumn
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "party_id")
-	private List<Pokemon> pokemon;
+	private List<Pokemon> pokemon = new ArrayList<>();
 	@OneToOne
 	@JoinColumn(name="trainer")
 	private Trainer trainer;

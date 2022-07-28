@@ -1,10 +1,7 @@
 package com.revature.controllers;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 
-import org.json.JSONException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.exceptions.PokemonNotFoundException;
+import com.revature.exceptions.StorageFullException;
 import com.revature.models.Pokemon;
 import com.revature.services.PokemonService;
 import com.revature.services.TrainerService;
@@ -43,9 +41,8 @@ public class PokemonController {
 		return new ResponseEntity<>(ps.getPokemonById(id), HttpStatus.OK);
 	}
 
-	@PostMapping("/trainer/{username}")
-	public ResponseEntity<Pokemon> createPokemon(@RequestBody Pokemon p, @PathVariable String username) throws JSONException, MalformedURLException, IOException {
-		p.setTrainer(ts.getTrainer(username));
+	@PostMapping
+	public ResponseEntity<Pokemon> createPokemon(@RequestBody Pokemon p) throws StorageFullException {
 		return new ResponseEntity<>(ps.createPokemon(p), HttpStatus.CREATED);
 	}
 

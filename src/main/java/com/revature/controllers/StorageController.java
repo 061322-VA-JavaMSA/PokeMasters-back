@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,11 @@ public class StorageController {
 	@GetMapping("{id}")
 	public ResponseEntity<Storage> getById(@PathVariable int id) throws StorageNotFoundException {
 		return ResponseEntity.ok(ss.getStorageById(id));
+	}
+	
+	@PostMapping
+	public ResponseEntity<Storage> createStorage(@RequestBody Storage s) {
+		return new ResponseEntity<>(ss.createStorage(s), HttpStatus.OK);
 	}
 	
 	@PutMapping
