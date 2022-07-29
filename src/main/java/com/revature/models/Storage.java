@@ -102,6 +102,10 @@ public class Storage {
 	public void insert(Pokemon p) throws StorageFullException {
 		boolean looped = false;
 		for (int j = activeIndex; true; j++) {
+			if (j == boxes.length) {
+				j = 0;
+				looped = true;
+			}
 			if (looped && j == activeIndex) {
 				throw new StorageFullException();
 			}
@@ -116,10 +120,6 @@ public class Storage {
 					pokes[i] = p;
 					return;
 				}
-			}
-			if (j == boxes.length) {
-				j = 0;
-				looped = true;
 			}
 		}
 	}
