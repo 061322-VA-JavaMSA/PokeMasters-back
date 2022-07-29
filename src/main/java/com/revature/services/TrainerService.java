@@ -1,9 +1,12 @@
 package com.revature.services;
 
-import com.revature.security.CustomUser;
-import com.revature.models.Role;
-import com.revature.models.Trainer;
-import com.revature.repositories.TrainerRepository;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,10 +14,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import com.revature.models.Role;
+import com.revature.models.Trainer;
+import com.revature.repositories.TrainerRepository;
+import com.revature.security.CustomUser;
 
 @Service
 @Transactional //https://www.baeldung.com/transaction-configuration-with-jpa-and-spring
@@ -62,4 +65,9 @@ public class TrainerService implements UserDetailsService {
         return tr.findAll();
     }
 
+    public Trainer getbyId(int id) {
+    	Optional<Trainer> t = tr.findById(id);
+    	Trainer trainer = t.get();
+    	return trainer;
+    }
 }

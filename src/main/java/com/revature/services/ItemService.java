@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -41,5 +42,11 @@ public class ItemService {
 	public void deleteItem(int id) {
 		ir.deleteById(id);
 	}
-	
+
+	public Item getById(int id) {
+		Optional<Item> i = ir.findById(id);
+		Item item = i.get();
+		return item;
+		
+	}
 }

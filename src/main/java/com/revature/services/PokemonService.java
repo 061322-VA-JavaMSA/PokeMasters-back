@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.transaction.Transactional;
-
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -42,9 +45,14 @@ public class PokemonService {
 	}
 
 	public Pokemon createPokemon(Pokemon p) throws StorageFullException {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("user-agent", "Application");
+		HttpEntity<String> entity = new HttpEntity<>(headers);
+		String endpoint = "https://pokeapi.co/api/v2/pokemon/" + p.getApiId();
 		p.setId(-1);
 		p.setShiny(Math.random() >= 0.98 ? true : false);
-		PokemonDRO pd = rt.getForObject("https://pokeapi.co/api/v2/pokemon/" + p.getApiId(), PokemonDRO.class);
+//		PokemonDRO pd = rt.getForObject("https://pokeapi.co/api/v2/pokemon/" + p.getApiId(), PokemonDRO.class);
+		PokemonDRO pd = rt.exchange(endpoint, HttpMethod.GET, entity,PokemonDRO.class).getBody();
 		p.setName(pd.getName());
 		p.setBaseExp(pd.getBaseExp());
 		p.setExp(0);
