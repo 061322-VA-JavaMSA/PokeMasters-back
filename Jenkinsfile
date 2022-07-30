@@ -1,7 +1,6 @@
 pipeline {
     agent any
     environment {
-        DOCKER_BUILDKIT = 1
         PORT_HOST = "8081"
         PORT_CONT = "8080"
         IMAGE_TAG = "pokemasters"
@@ -21,9 +20,17 @@ pipeline {
                 sh 'docker rmi ${IMAGE_TAG} || true'
             }
         }
-        stage('maven package') {
+        stage('maven package + junit') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh 'mvn -B -Dmaven.test.failure.ignore=true clean package -P prod'
+            }
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
             }
         }
         stage('unpacking jar') {
