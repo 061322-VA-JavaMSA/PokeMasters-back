@@ -23,7 +23,7 @@ pipeline {
         }
         stage('maven package') {
             steps {
-                sh './mvnw -B -DskipTests clean package'
+                sh 'mvn -B -DskipTests clean package'
             }
         }
         stage('unpacking jar') {
