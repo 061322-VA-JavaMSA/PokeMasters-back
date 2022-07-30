@@ -29,9 +29,9 @@ pipeline {
         stage('unpacking jar') {
             steps {
                 sh 'mkdir target/dependency'
-                sh 'cd target/dependency'
-                sh 'ls'
-                sh 'jar -xf ../*.jar'
+                dir('target/dependency') {
+                    sh 'jar -xf ../*.jar'
+                }
             }
         }
         stage('create image') {
