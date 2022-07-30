@@ -1,18 +1,3 @@
-# syntax=docker/dockerfile:experimental
-# https://spring.io/guides/topicals/spring-boot-docker
-FROM openjdk:8-jdk-alpine as build
-RUN addgroup -S demo && adduser -S demo -G demo
-USER demo
-WORKDIR /workspace/app
-
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
-
-RUN --mount=type=cache,target=/root/.m2 ./mvnw install -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
-
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
 ARG DEPENDENCY=/workspace/app/target/dependency

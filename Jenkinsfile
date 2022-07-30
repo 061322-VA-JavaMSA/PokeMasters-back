@@ -21,6 +21,18 @@ pipeline {
                 sh 'docker rmi ${IMAGE_TAG} || true'
             }
         }
+        stage('maven package') {
+            steps {
+                sh './mvnw -B -DskipTests clean package'
+            }
+        }
+        stage('unpacking jar') {
+            steps {
+                sh 'mkdir target/dependency'
+                sh 'cd target/dependency'
+                sh 'jar -xf ../*.jar'
+            }
+        }
         stage('create image') {
             steps {
                 sh 'docker build -t ${IMAGE_TAG} -f Dockerfile .'
