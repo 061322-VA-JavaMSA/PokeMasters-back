@@ -30,6 +30,7 @@ pipeline {
             steps {
                 sh 'mkdir target/dependency'
                 sh 'cd target/dependency'
+                sh 'ls'
                 sh 'jar -xf ../*.jar'
             }
         }
