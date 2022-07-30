@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:experimental
 # https://spring.io/guides/topicals/spring-boot-docker
 FROM openjdk:8-jdk-alpine as build
+RUN addgroup -S demo && adduser -S demo -G demo
+USER demo
 WORKDIR /workspace/app
 
 COPY mvnw .
