@@ -1,6 +1,7 @@
 pipeline {
     agent any
     environment {
+        DOCKER_BUILDKIT = 1
         PORT_HOST = "8081"
         PORT_CONT = "8080"
         IMAGE_TAG = "pokemasters"
