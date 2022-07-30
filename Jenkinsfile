@@ -12,12 +12,12 @@ pipeline {
     stages {
         stage('remove existing container') {
             steps {
-                sh 'docker stop ${CONTAINER_NAME}'
+                sh 'docker stop ${CONTAINER_NAME} || true'
             }
         }
         stage('remove existing image') {
             steps {
-                sh 'docker rmi ${IMAGE_TAG}'
+                sh 'docker rmi ${IMAGE_TAG} || true'
             }
         }
         stage('create image') {
