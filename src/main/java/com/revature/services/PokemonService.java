@@ -46,14 +46,14 @@ public class PokemonService {
 	}
 
 	public Pokemon createPokemon(Pokemon p) throws StorageFullException {
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("user-agent", "Application");
-		HttpEntity<String> entity = new HttpEntity<>(headers);
-		String endpoint = "https://pokeapi.co/api/v2/pokemon/" + p.getApiId();
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add("user-agent", "Application");
+//		HttpEntity<String> entity = new HttpEntity<>(headers);
+//		String endpoint = "https://pokeapi.co/api/v2/pokemon/" + p.getApiId();
 		p.setId(-1);
 		p.setShiny(Math.random() >= 0.98 ? true : false);
-//		PokemonDRO pd = rt.getForObject("https://pokeapi.co/api/v2/pokemon/" + p.getApiId(), PokemonDRO.class);
-		PokemonDRO pd = rt.exchange(endpoint, HttpMethod.GET, entity,PokemonDRO.class).getBody();
+		PokemonDRO pd = rt.getForObject("https://pokeapi.co/api/v2/pokemon/" + p.getApiId(), PokemonDRO.class);
+//		PokemonDRO pd = rt.exchange(endpoint, HttpMethod.GET, entity,PokemonDRO.class).getBody();
 		p.setName(pd.getName());
 		p.setBaseExp(pd.getBaseExp());
 		p.setExp(0);
