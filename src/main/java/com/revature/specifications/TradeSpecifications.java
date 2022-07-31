@@ -54,4 +54,18 @@ public class TradeSpecifications {
 			}
 		};
 	}
+	
+	public static Specification<Trade> isPending() {
+		return new Specification<Trade>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Predicate toPredicate(Root<Trade> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				return cb.equal(root.get("status"), Status.PENDING);
+			}
+		};
+	}
 }
