@@ -45,7 +45,7 @@ public class PokeMastersBackApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("http://127.0.0.1:4200", "http://localhost:4200")
+						.allowedOrigins("http://127.0.0.1:4200", "http://localhost:4200", "http://pokemasters.com.s3-website-us-east-1.amazonaws.com")
 						.allowedMethods("GET", "POST", "PUT", "DELETE")
 						.allowCredentials(true)
 						.allowedHeaders("Content-Type", "Accept", "Authorization")
