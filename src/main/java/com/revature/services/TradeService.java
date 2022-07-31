@@ -46,14 +46,14 @@ public class TradeService {
 	}
 	
 	public List<Trade> getAvailableTrades(Trainer t) {
-		return tr.findAll(TradeSpecifications.notOwnedBy(t).and(TradeSpecifications.notCompleted()));
+		return tr.findAll(TradeSpecifications.notOwnedBy(t).and(TradeSpecifications.isPending()));
 	}
 
 	@Transactional
 	public Trade updateTrade(Trade t) throws StorageFullException {
 		switch (t.getStatus()) {
 		case PENDING:
-			if (t.getOffered() != null) {
+			if (t.getOffered() != null && t.getListed() != null) {
 				Trainer temp = t.getOffered().getTrainer();
 				t.getOffered().setTrainer(t.getListed().getTrainer());
 				t.getListed().setTrainer(temp);

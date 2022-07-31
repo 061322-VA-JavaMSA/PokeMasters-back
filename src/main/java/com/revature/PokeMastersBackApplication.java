@@ -86,7 +86,7 @@ public class PokeMastersBackApplication {
 			
 			Pokemon p1 = ps.createPokemon(new Pokemon(4, 5, t1));
 			Pokemon p2 = ps.createPokemon(new Pokemon(1, 5, t1));
-			Pokemon p3 = ps.createPokemon(new Pokemon(7, 5, t1));
+			Pokemon p3 = ps.createPokemon(new Pokemon(151, 100, t1));
 			
 		};
 	}
