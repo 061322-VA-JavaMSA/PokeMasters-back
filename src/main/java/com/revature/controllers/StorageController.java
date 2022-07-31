@@ -29,9 +29,9 @@ public class StorageController {
 		this.ts = ts;
 	}
 
-	@GetMapping("/trainer/{username}")
-	public ResponseEntity<Storage> getTrainerStorage(@PathVariable String username) {
-		Trainer t = ts.getTrainer(username);
+	@GetMapping("/trainer/{id}")
+	public ResponseEntity<Storage> getTrainerStorage(@PathVariable int id) {
+		Trainer t = ts.getbyId(id);
 		return new ResponseEntity<>(ss.getStorageByTrainer(t), HttpStatus.OK);
 	}
 	

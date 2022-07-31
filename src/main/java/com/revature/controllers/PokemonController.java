@@ -41,8 +41,9 @@ public class PokemonController {
 		return new ResponseEntity<>(ps.getPokemonById(id), HttpStatus.OK);
 	}
 
-	@PostMapping
-	public ResponseEntity<Pokemon> createPokemon(@RequestBody Pokemon p) throws StorageFullException {
+	@PostMapping("/trainer/{id}")
+	public ResponseEntity<Pokemon> createPokemon(@PathVariable int id, @RequestBody Pokemon p) throws StorageFullException {
+		p.setTrainer(ts.getbyId(id));
 		return new ResponseEntity<>(ps.createPokemon(p), HttpStatus.CREATED);
 	}
 

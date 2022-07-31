@@ -1,10 +1,17 @@
 package com.revature.dros;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+class MoveData {
+	int id;
+	String name;
+	String learnMethod;
+}
 
 public class PokemonDRO {
 
@@ -18,6 +25,7 @@ public class PokemonDRO {
 	private int weight;
 	private String name;
 	private Map sprites;
+	private List<MoveData> moves;
 
 	public PokemonDRO() {
 		super();
@@ -149,6 +157,11 @@ public class PokemonDRO {
 		} else {
 			type2 = "";
 		}
+	}
+	
+	@JsonProperty("moves")
+	private void unpackMoves(Map[] moves) {
+		
 	}
 
 }

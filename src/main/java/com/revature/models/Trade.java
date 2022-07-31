@@ -90,9 +90,17 @@ public class Trade {
 		this.range = range;
 	}
 
+	public Trainer getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Trainer owner) {
+		this.owner = owner;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, listed, offered, range, requestedId, status);
+		return Objects.hash(id, listed, offered, owner, range, requestedId, status);
 	}
 
 	@Override
@@ -105,13 +113,14 @@ public class Trade {
 			return false;
 		Trade other = (Trade) obj;
 		return id == other.id && Objects.equals(listed, other.listed) && Objects.equals(offered, other.offered)
-				&& range == other.range && requestedId == other.requestedId && Objects.equals(status, other.status);
+				&& Objects.equals(owner, other.owner) && range == other.range && requestedId == other.requestedId
+				&& status == other.status;
 	}
 
 	@Override
 	public String toString() {
 		return "Trade [id=" + id + ", status=" + status + ", listed=" + listed + ", offered=" + offered
-				+ ", requestedId=" + requestedId + ", range=" + range + "]";
+				+ ", requestedId=" + requestedId + ", range=" + range + ", owner=" + owner + "]";
 	}
 
 }
