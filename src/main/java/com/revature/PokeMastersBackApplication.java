@@ -58,10 +58,10 @@ public class PokeMastersBackApplication {
 	@Bean
 	CommandLineRunner run(TrainerService ts, MoveService ms, PokemonService ps, ItemService is, TrainerItemService tis, StorageService ss, PartyService ps2) {
 		return args -> {
-			Trainer t1 = ts.saveTrainer(new Trainer(-1, "calvin", "1234", "pokemaster1", 100, Role.TRAINER));
+			Trainer t1 = ts.saveTrainer(new Trainer(-1, "calvin", "1234", "pokemaster1", 1000, Role.TRAINER));
 			//Trainer t2 = ts.saveTrainer(new Trainer(-1, "elonmusk", "1234", "pokemaster", 100, Role.TRAINER));
-			ts.saveTrainer(new Trainer(-1, "adam", "1234", "pokemaster2", 100, Role.ADMIN));
-			ts.saveTrainer(new Trainer(-1, "kevin", "1234", "pokemaster3", 100, Role.TRAINER));
+			ts.saveTrainer(new Trainer(-1, "adam", "1234", "pokemaster2", 1000, Role.ADMIN));
+			ts.saveTrainer(new Trainer(-1, "kevin", "1234", "pokemaster3", 1000, Role.TRAINER));
       /*
 			ts.saveTrainer(new Trainer(-1, "adam", "1234", "pokemaster2", 100, new ArrayList<>(), Role.ADMIN, null));
 			ts.saveTrainer(new Trainer(-1, "kevin", "1234", "pokemaster3", 100, new ArrayList<>(), Role.TRAINER, null));
