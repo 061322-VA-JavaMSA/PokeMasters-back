@@ -1,11 +1,15 @@
 package com.revature;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.revature.util.HeaderRequestInterceptor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -41,7 +45,7 @@ public class PokeMastersBackApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("http://127.0.0.1:4200", "http://localhost:4200")
+						.allowedOrigins("http://127.0.0.1:4200", "http://localhost:4200", "http://pokemasters.com.s3-website-us-east-1.amazonaws.com")
 						.allowedMethods("GET", "POST", "PUT", "DELETE")
 						.allowCredentials(true)
 						.allowedHeaders("Content-Type", "Accept", "Authorization")
@@ -52,16 +56,22 @@ public class PokeMastersBackApplication {
 	
 	@Bean
     public RestTemplate getRestTemplate() {
-        return new RestTemplate();
+		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+		interceptors.add(new HeaderRequestInterceptor("Accept", MediaType.APPLICATION_JSON_VALUE));
+		interceptors.add(new HeaderRequestInterceptor("user-agent", "Application"));
+
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setInterceptors(interceptors);
+        return restTemplate;
     }
 
 	@Bean
 	CommandLineRunner run(TrainerService ts, MoveService ms, PokemonService ps, ItemService is, TrainerItemService tis, StorageService ss, PartyService ps2) {
 		return args -> {
-			Trainer t1 = ts.saveTrainer(new Trainer(-1, "calvin", "1234", "pokemaster1", 100, Role.TRAINER));
+			Trainer t1 = ts.saveTrainer(new Trainer(-1, "calvin", "1234", "pokemaster1", 1000, Role.TRAINER));
 			//Trainer t2 = ts.saveTrainer(new Trainer(-1, "elonmusk", "1234", "pokemaster", 100, Role.TRAINER));
-			ts.saveTrainer(new Trainer(-1, "adam", "1234", "pokemaster2", 100, Role.ADMIN));
-			ts.saveTrainer(new Trainer(-1, "kevin", "1234", "pokemaster3", 100, Role.TRAINER));
+			ts.saveTrainer(new Trainer(-1, "adam", "1234", "pokemaster2", 1000, Role.ADMIN));
+			ts.saveTrainer(new Trainer(-1, "kevin", "1234", "pokemaster3", 1000, Role.TRAINER));
       /*
 			ts.saveTrainer(new Trainer(-1, "adam", "1234", "pokemaster2", 100, new ArrayList<>(), Role.ADMIN, null));
 			ts.saveTrainer(new Trainer(-1, "kevin", "1234", "pokemaster3", 100, new ArrayList<>(), Role.TRAINER, null));

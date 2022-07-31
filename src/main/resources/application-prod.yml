@@ -1,8 +1,8 @@
 spring:
  datasource:
-   url: ${PMDB_URL}
-   username: ${PMDB_USER}
-   password: ${PMDB_PASS}
+   url: ${DB_URL}
+   username: ${DB_USER}
+   password: ${DB_PASS}
  jpa:
    database-platform: org.hibernate.dialect.PostgreSQLDialect
    hibernate:

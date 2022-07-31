@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,8 +40,8 @@ public class TrainerItemController {
 		
 		return new ResponseEntity<>(ti, HttpStatus.OK);
 	}
-	@GetMapping("/add")
-	public ResponseEntity<TrainerItem> getTrainerItemsByTrainer(@RequestBody TrainerItemsKey tik) {
+	@PostMapping
+	public ResponseEntity<TrainerItem> postTrainerItemsByTrainer(@RequestBody TrainerItemsKey tik) {
 		TrainerItem tItem = tis.getByTrainer(tik);
 		if(tItem == null) {
 			Item i = is.getById(tik.getItemId());
@@ -49,5 +51,12 @@ public class TrainerItemController {
 			
 		}
 		return new ResponseEntity<>(tItem, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<List<TrainerItem>> getTrainerItems(@PathVariable int id) {
+		List<TrainerItem> tItems = tis.getTrainerItems(id);
+		
+		return new ResponseEntity<>(tItems, HttpStatus.OK);
 	}
 }

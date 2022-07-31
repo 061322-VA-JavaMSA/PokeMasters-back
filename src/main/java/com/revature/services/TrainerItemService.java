@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -38,6 +39,19 @@ public class TrainerItemService {
 			ti.setQty(ti.getQty() + 1);
 			this.saveTrainerItem(ti);
 		} 
+		
+		return ti;
+	}
+	
+	public List<TrainerItem> getTrainerItems(int id) {
+		List<TrainerItem> tItems = this.getItems();
+		List<TrainerItem> ti = new ArrayList<TrainerItem>();
+		for(TrainerItem item : tItems) {
+			if(item.getId().getTrainerId() == id) {
+				System.out.println(item + " Hit");
+				ti.add(item);
+			}
+		}
 		
 		return ti;
 	}
