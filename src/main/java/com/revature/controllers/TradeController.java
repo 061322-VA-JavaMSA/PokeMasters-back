@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.exceptions.StorageFullException;
 import com.revature.exceptions.TradeNotFoundException;
 import com.revature.models.Trade;
 import com.revature.services.TradeService;
@@ -30,9 +31,14 @@ public class TradeController {
 		this.trs = trs;
 	}
 	
-	@GetMapping("/trainer/{username}")
-	public ResponseEntity<List<Trade>> getTrades(@PathVariable String username) {
-		return ResponseEntity.ok(ts.getTradesByOwner(trs.getTrainer(username)));
+	@GetMapping("/trainer/{id}")
+	public ResponseEntity<List<Trade>> getOwnedTrades(@PathVariable int id) {
+		return ResponseEntity.ok(ts.getOwnedTrades(trs.getbyId(id)));
+	}
+	
+	@GetMapping("/trainer/!{id}")
+	public ResponseEntity<List<Trade>> getAvailableTrades(@PathVariable int id) {
+		return ResponseEntity.ok(ts.getAvailableTrades(trs.getbyId(id)));
 	}
 	
 	@GetMapping("/{id}")
@@ -40,18 +46,19 @@ public class TradeController {
 		return ResponseEntity.ok(ts.getById(id));
 	}
 	
-	@PostMapping
-	public ResponseEntity<Trade> createTrade(@RequestBody Trade t) {
+	@PostMapping("/trainer/{id}")
+	public ResponseEntity<Trade> createTrade(@RequestBody Trade t, @PathVariable int id) {
+		t.setOwner(trs.getbyId(id));
 		return ResponseEntity.ok(ts.createTrade(t));
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<Trade> updateTrade(@RequestBody Trade t) {
-		return ResponseEntity.ok(ts.saveTrade(t));
+	@PutMapping
+	public ResponseEntity<Trade> updateTrade(@RequestBody Trade t) throws StorageFullException {
+		return ResponseEntity.ok(ts.updateTrade(t));
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteTrade(@PathVariable Trade t) {
-		ts.deleteTrade(t);
+	public ResponseEntity<String> deleteTrade(@PathVariable int id) throws StorageFullException, TradeNotFoundException {
+		return ts.deleteTrade(ts.getById(id));
 	}
 }

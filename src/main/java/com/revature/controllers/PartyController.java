@@ -26,9 +26,9 @@ public class PartyController {
 		this.ts = ts;
 	}
 
-	@GetMapping("/trainer/{username}")
-	public ResponseEntity<Party> getById(@PathVariable String username) {
-		return ResponseEntity.ok(ps.getPartyByTrainer(ts.getTrainer(username)));
+	@GetMapping("/trainer/{id}")
+	public ResponseEntity<Party> getById(@PathVariable int id) {
+		return ResponseEntity.ok(ps.getPartyByTrainer(ts.getbyId(id)));
 	}
 	
 	@PostMapping

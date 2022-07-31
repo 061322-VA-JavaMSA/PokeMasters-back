@@ -20,6 +20,7 @@ import com.revature.models.Party;
 import com.revature.models.Pokemon;
 import com.revature.models.Storage;
 import com.revature.models.Trainer;
+import com.revature.models.Type;
 import com.revature.repositories.PokemonRepository;
 import com.revature.specifications.PokemonSpecifications;
 import com.revature.util.Util;
@@ -73,8 +74,8 @@ public class PokemonService {
 		}
 		p.setIv(iv);
 		p.setEv(ev);
-		p.setType1(pd.getType1());
-		p.setType2(pd.getType2());
+		p.setType1(Type.valueOf(pd.getType1().toUpperCase()));
+		p.setType2(pd.getType2().equals("") ? Type.NONE : Type.valueOf(pd.getType2().toUpperCase()));
 		p.setWeight(pd.getWeight());
 		p.setHeight(pd.getHeight());
 		p.setNature(Util.randomEnum(Nature.class));
@@ -98,6 +99,21 @@ public class PokemonService {
 
 	public Pokemon getPokemonById(int id) throws PokemonNotFoundException {
 		return pr.findById(id).orElseThrow(() -> new PokemonNotFoundException());
+	}
+	
+	public Pokemon receivePokemon(Pokemon p) throws StorageFullException {
+Party party = ps.getPartyByTrainer(p.getTrainer());
+		
+		if (party.getPokemon().size() < 6) {
+			party.getPokemon().add(p);
+			ps.saveParty(party);
+		} else {
+			Storage storage = ss.getStorageByTrainer(p.getTrainer());
+			storage.insert(p);
+			ss.saveStorage(storage);
+		}
+		
+		return savePokemon(p);
 	}
 
 	public List<Pokemon> getPokemonByTrainer(Trainer t) {

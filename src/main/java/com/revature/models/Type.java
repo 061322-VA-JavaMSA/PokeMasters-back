@@ -1,0 +1,5 @@
+package com.revature.models;
+
+public enum Type {
+	NONE, NORMAL, FIRE, WATER, GRASS, ELECTRIC, ICE, FIGHTING, POISON, GROUND, FLYING, PSYCHIC, BUG, ROCK, GHOST, DARK, DRAGON, STEEL, FAIRY;
+}
