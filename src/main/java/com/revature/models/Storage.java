@@ -123,4 +123,17 @@ public class Storage {
 			}
 		}
 	}
+	
+	public void remove(Pokemon p) {
+		for (Box b: boxes) {
+			Pokemon[] pokemon = b.getPokemon();
+			for (Pokemon poke : pokemon) {
+				if (poke.equals(p)) {
+					poke = null;
+					b.setPokemon(pokemon);
+					return;
+				}
+			}
+		}
+	}
 }

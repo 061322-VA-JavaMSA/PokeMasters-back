@@ -38,6 +38,7 @@ public class TradeService {
 
 	public Trade createTrade(Trade t) {
 		t.setId(-1);
+		ps.removePokemon(t.getListed());
 		return tr.save(t);
 	}
 	
@@ -54,9 +55,11 @@ public class TradeService {
 		switch (t.getStatus()) {
 		case PENDING:
 			if (t.getOffered() != null && t.getListed() != null) {
+				ps.removePokemon(t.getOffered());
 				Trainer temp = t.getOffered().getTrainer();
 				t.getOffered().setTrainer(t.getListed().getTrainer());
 				t.getListed().setTrainer(temp);
+				ps.savePokemon(t.getListed());
 				ps.receivePokemon(t.getListed());
 				ps.savePokemon(t.getOffered());
 				t.setStatus(Status.ACCEPTED);
