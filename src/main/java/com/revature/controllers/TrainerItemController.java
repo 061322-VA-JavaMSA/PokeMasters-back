@@ -2,6 +2,7 @@ package com.revature.controllers;
 
 import java.util.List;
 
+import com.revature.exceptions.TrainerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,7 @@ public class TrainerItemController {
 		return new ResponseEntity<>(ti, HttpStatus.OK);
 	}
 	@PostMapping
-	public ResponseEntity<TrainerItem> postTrainerItemsByTrainer(@RequestBody TrainerItemsKey tik) {
+	public ResponseEntity<TrainerItem> postTrainerItemsByTrainer(@RequestBody TrainerItemsKey tik) throws TrainerNotFoundException {
 		TrainerItem tItem = tis.getByTrainer(tik);
 		if(tItem == null) {
 			Item i = is.getById(tik.getItemId());

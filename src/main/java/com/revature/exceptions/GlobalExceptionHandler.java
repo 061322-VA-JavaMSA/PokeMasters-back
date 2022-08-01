@@ -25,4 +25,10 @@ public class GlobalExceptionHandler {
 	public void tradeNotFound() {
 		
 	}
+
+	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason="Trainer not found.")
+	@ExceptionHandler(TrainerNotFoundException.class)
+	public void trainerNotFound() {
+
+	}
 }
