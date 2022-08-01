@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import com.revature.exceptions.TrainerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class StorageController {
 	}
 
 	@GetMapping("/trainer/{id}")
-	public ResponseEntity<Storage> getTrainerStorage(@PathVariable int id) {
+	public ResponseEntity<Storage> getTrainerStorage(@PathVariable int id) throws TrainerNotFoundException {
 		Trainer t = ts.getbyId(id);
 		return new ResponseEntity<>(ss.getStorageByTrainer(t), HttpStatus.OK);
 	}

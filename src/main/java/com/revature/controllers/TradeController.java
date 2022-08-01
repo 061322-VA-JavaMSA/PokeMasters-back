@@ -2,6 +2,7 @@ package com.revature.controllers;
 
 import java.util.List;
 
+import com.revature.exceptions.TrainerNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,12 +33,12 @@ public class TradeController {
 	}
 	
 	@GetMapping("/trainer/{id}")
-	public ResponseEntity<List<Trade>> getOwnedTrades(@PathVariable int id) {
+	public ResponseEntity<List<Trade>> getOwnedTrades(@PathVariable int id) throws  TrainerNotFoundException {
 		return ResponseEntity.ok(ts.getOwnedTrades(trs.getbyId(id)));
 	}
 	
 	@GetMapping("/trainer/!{id}")
-	public ResponseEntity<List<Trade>> getAvailableTrades(@PathVariable int id) {
+	public ResponseEntity<List<Trade>> getAvailableTrades(@PathVariable int id) throws TrainerNotFoundException {
 		return ResponseEntity.ok(ts.getAvailableTrades(trs.getbyId(id)));
 	}
 	
@@ -47,7 +48,7 @@ public class TradeController {
 	}
 	
 	@PostMapping("/trainer/{id}")
-	public ResponseEntity<Trade> createTrade(@RequestBody Trade t, @PathVariable int id) {
+	public ResponseEntity<Trade> createTrade(@RequestBody Trade t, @PathVariable int id) throws TrainerNotFoundException {
 		t.setOwner(trs.getbyId(id));
 		return ResponseEntity.ok(ts.createTrade(t));
 	}

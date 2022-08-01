@@ -3,6 +3,7 @@ package com.revature.controllers;
 import java.net.URI;
 import java.util.List;
 
+import com.revature.exceptions.TrainerNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,12 +60,12 @@ public class TrainerController {
     }
     
     @GetMapping("/trainers/{id}")
-    public ResponseEntity<Trainer> getById(@PathVariable int id) {
+    public ResponseEntity<Trainer> getById(@PathVariable int id) throws TrainerNotFoundException {
     	return new ResponseEntity<>(ts.getbyId(id), HttpStatus.OK);
     }
     
     @PutMapping("/trainers/{id}")
-    public ResponseEntity<Trainer> updateTrainer(@PathVariable int id, @RequestBody Object obj) {
+    public ResponseEntity<Trainer> updateTrainer(@PathVariable int id, @RequestBody Object obj) throws TrainerNotFoundException {
     	String[] money = obj.toString().split("=");
     	int cash = Integer.parseInt(money[1].replace("}", ""));
     	Trainer t = ts.getbyId(id);

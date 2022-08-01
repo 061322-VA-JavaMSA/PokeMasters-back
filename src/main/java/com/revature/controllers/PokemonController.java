@@ -2,6 +2,7 @@ package com.revature.controllers;
 
 import java.util.List;
 
+import com.revature.exceptions.TrainerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +43,7 @@ public class PokemonController {
 	}
 
 	@PostMapping("/trainer/{id}")
-	public ResponseEntity<Pokemon> createPokemon(@PathVariable int id, @RequestBody Pokemon p) throws StorageFullException {
+	public ResponseEntity<Pokemon> createPokemon(@PathVariable int id, @RequestBody Pokemon p) throws StorageFullException, TrainerNotFoundException {
 		p.setTrainer(ts.getbyId(id));
 		return new ResponseEntity<>(ps.createPokemon(p), HttpStatus.CREATED);
 	}

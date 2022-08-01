@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.revature.exceptions.TrainerNotFoundException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -65,9 +66,16 @@ public class TrainerService implements UserDetailsService {
         return tr.findAll();
     }
 
-    public Trainer getbyId(int id) {
+    public Trainer getbyId(int id) throws TrainerNotFoundException {
     	Optional<Trainer> t = tr.findById(id);
-    	Trainer trainer = t.get();
-    	return trainer;
+
+        if (!t.isPresent()) {
+            System.out.println("No trainer with that ID");
+            throw new TrainerNotFoundException();
+        } else {
+            System.out.println("Trainer found in the database");
+        }
+
+    	return t.get();
     }
 }

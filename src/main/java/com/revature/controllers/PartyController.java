@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import com.revature.exceptions.TrainerNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +28,7 @@ public class PartyController {
 	}
 
 	@GetMapping("/trainer/{id}")
-	public ResponseEntity<Party> getById(@PathVariable int id) {
+	public ResponseEntity<Party> getById(@PathVariable int id) throws TrainerNotFoundException {
 		return ResponseEntity.ok(ps.getPartyByTrainer(ts.getbyId(id)));
 	}
 	
