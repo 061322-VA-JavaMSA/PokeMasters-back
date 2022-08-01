@@ -65,11 +65,11 @@ public class PokemonService {
 		sprites.put("front_a", ani.get(p.isShiny() ? "front_shiny" : "front_default").toString());
 		sprites.put("back_a", ani.get(p.isShiny() ? "back_shiny" : "back_default").toString());
 		p.setSprite(sprites);
-		String[] values = {"hp", "att", "def", "satt", "sdef", "speed"};
+		String[] values = { "hp", "att", "def", "satt", "sdef", "speed" };
 		Map<String, Integer> iv = new HashMap<>();
 		Map<String, Integer> ev = new HashMap<>();
 		for (String v : values) {
-			iv.put(v, (int)(Math.random() * 32));
+			iv.put(v, (int) (Math.random() * 32));
 			ev.put(v, 0);
 		}
 		p.setIv(iv);
@@ -82,10 +82,10 @@ public class PokemonService {
 		p.setStats(getStats(p.getBase(), p.getIv(), p.getEv(), p.getLevel(), p.getNature()));
 		p.setHp(p.getStats().get("hp"));
 		p.setOt(p.getTrainer());
-		
+
 		Pokemon saved = pr.save(p);
 		Party party = ps.getPartyByTrainer(saved.getTrainer());
-		
+
 		if (party.getPokemon().size() < 6) {
 			party.getPokemon().add(saved);
 			ps.saveParty(party);
@@ -100,10 +100,10 @@ public class PokemonService {
 	public Pokemon getPokemonById(int id) throws PokemonNotFoundException {
 		return pr.findById(id).orElseThrow(() -> new PokemonNotFoundException());
 	}
-	
+
 	public Pokemon receivePokemon(Pokemon p) throws StorageFullException {
-Party party = ps.getPartyByTrainer(p.getTrainer());
-		
+		Party party = ps.getPartyByTrainer(p.getTrainer());
+
 		if (party.getPokemon().size() < 6) {
 			party.getPokemon().add(p);
 			ps.saveParty(party);
@@ -112,8 +112,17 @@ Party party = ps.getPartyByTrainer(p.getTrainer());
 			storage.insert(p);
 			ss.saveStorage(storage);
 		}
-		
+
 		return savePokemon(p);
+	}
+
+	public void removePokemon(Pokemon p) {
+		Party party = ps.getPartyByTrainer(p.getTrainer());
+		party.getPokemon().remove(p);
+		Storage storage = ss.getStorageByTrainer(p.getTrainer());
+		storage.remove(p);
+		ps.saveParty(party);
+		ss.saveStorage(storage);
 	}
 
 	public List<Pokemon> getPokemonByTrainer(Trainer t) {
@@ -132,9 +141,10 @@ Party party = ps.getPartyByTrainer(p.getTrainer());
 	public List<Pokemon> getPokemon() {
 		return pr.findAll();
 	}
-	
-	private Map<String, Integer> getStats(Map<String, Integer> b, Map<String, Integer> i, Map<String, Integer> e, int l, Nature n) {
-		String[] values = {"hp", "att", "def", "satt", "sdef", "speed"};
+
+	private Map<String, Integer> getStats(Map<String, Integer> b, Map<String, Integer> i, Map<String, Integer> e, int l,
+			Nature n) {
+		String[] values = { "hp", "att", "def", "satt", "sdef", "speed" };
 		Map<String, Integer> s = new HashMap<>();
 		for (String v : values) {
 			double stat = 0;
